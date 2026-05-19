@@ -10,8 +10,8 @@ TextDisplayエンティティを使って、プレイヤーの画面上に自由
 - プレイヤーに追従する **Personal HUD** と、座標・エンティティに固定する **Shared HUD** の2種類
 - 位置・角度・サイズ・透明度・背景色をリアルタイムに変更可能
 - プリセット9箇所 + 完全カスタム位置に対応
-- 時限式・条件式での自動削除
-- 複数プレイヤーへの HUD 共有・観戦対応
+- 期限付き・条件付きでの登録と自動削除
+- 複数プレイヤーへのHUD共有・観戦対応
 
 ---
 
@@ -30,7 +30,7 @@ TextDisplayエンティティを使って、プレイヤーの画面上に自由
 <dependencies>
     <dependency>
         <groupId>io.github.nite2232</groupId>
-        <artifactId>bcds-hud</artifactId>
+        <artifactId>BCDs-HUD</artifactId>
         <version>1.0.0</version>
         <scope>provided</scope>
     </dependency>
