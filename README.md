@@ -134,15 +134,12 @@ public class MyPlugin extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        hudManager = new HudManager(this);
-
-        // 毎tick更新（必須）
-        Bukkit.getScheduler().runTaskTimer(this, hudManager::updateAll, 0L, 1L);
+        hudManager = BCDs_HUD.getPlugin().getHudManager();
     }
 
     @Override
     public void onDisable() {
-        hudManager.hideAll(); // 必須
+        hudManager.hideAll();
     }
 }
 ```

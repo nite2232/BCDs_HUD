@@ -6,7 +6,7 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>com.github.nite2232</groupId>
-  <artifactId>BCDs-HUD</artifactId>
+  <artifactId>BCDs_HUD</artifactId>
   <version>1.0.0</version>
   <packaging>jar</packaging>
 
