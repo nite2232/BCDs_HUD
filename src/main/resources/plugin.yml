@@ -1,0 +1,11 @@
+name: BCDs_HUD
+version: '1.0'
+main: io.github.nite2232.bcds_hud.BCDs_HUD
+api-version: '1.21'
+
+authors:
+  - nite2232
+
+description: BCD's HUD Engine
+
+load: POSTWORLD
