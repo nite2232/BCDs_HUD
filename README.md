@@ -29,7 +29,7 @@ TextDisplayエンティティを使って、プレイヤーの画面上に自由
 
 <dependencies>
     <dependency>
-        <groupId>io.github.nite2232</groupId>
+        <groupId>com.github.nite2232</groupId>
         <artifactId>BCDs-HUD</artifactId>
         <version>1.0.0</version>
         <scope>provided</scope>
