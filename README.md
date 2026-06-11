@@ -139,7 +139,7 @@ public class MyPlugin extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        hudManager.hideAll();
+        hudManager.removeAll();
     }
 }
 ```
@@ -166,7 +166,7 @@ hudManager.registerPersonalProvider(player, HudSlot.bottomRight(), new MapProvid
 ```java
 @EventHandler
 public void onQuit(PlayerQuitEvent e) {
-    hudManager.hidePersonalHud(e.getPlayer());
+    hudManager.removePersonalHud(e.getPlayer());
 }
 ```
 
@@ -174,7 +174,7 @@ public void onQuit(PlayerQuitEvent e) {
 
 ```java
 // 死亡時: エンティティだけ消す（プロバイダは残る）
-hudManager.hidePersonalHudEntities(player);
+hudManager.hidePersonalHud(player);
 
 // リスポーン時: そのまま再表示
 hudManager.showPersonalHud(player);
@@ -244,13 +244,13 @@ hudManager.removeSharedViewer(slot, playerA);
 
 ```java
 // エンティティだけ消す（プロバイダ・viewer設定は残る）
-hudManager.hideSharedSlotEntities(slot);
+hudManager.hideSharedSlot(slot);
 
 // 再表示（anchorは保持されているので引数不要）
 hudManager.showSharedSlot(slot);
 
 // 完全削除
-hudManager.hideSharedSlot(slot);
+hudManager.removeSharedSlot(slot);
 ```
 
 ---

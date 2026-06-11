@@ -36,10 +36,10 @@ import java.util.stream.Collectors;
  * hudManager.registerPersonalProvider(player, HudSlot.topLeft(), myProvider);
  *
  * // 3. プレイヤー退出時に必ず呼ぶ
- * hudManager.hidePersonalHud(player);
+ * hudManager.removePersonalHud(player);
  *
  * // 4. プラグイン終了時に全HUDを削除
- * hudManager.hideAll();
+ * hudManager.removeAll();
  * }</pre>
  */
 public class HudManager {
@@ -363,7 +363,7 @@ public class HudManager {
      * <p>このメソッドを呼ぶ前にプロバイダを登録しておくことを推奨します。
      * すでに表示中の場合は何もしません。</p>
      *
-     * <p>プレイヤーが退出する際は必ず {@link #hidePersonalHud(Player)} を呼んでください。</p>
+     * <p>プレイヤーが退出する際は必ず {@link #removePersonalHud(Player)} を呼んでください。</p>
      *
      * @param player 対象プレイヤー
      */
@@ -415,7 +415,7 @@ public class HudManager {
      *
      * @param player 対象プレイヤー
      */
-    public void hidePersonalHudEntities(Player player) {
+    public void hidePersonalHud(Player player) {
         UUID uuid = player.getUniqueId();
 
         Map<HudSlot, TextDisplay> displayMap = personalDisplays.remove(uuid);
@@ -435,8 +435,8 @@ public class HudManager {
      *
      * @param player 対象プレイヤー
      */
-    public void hidePersonalHud(Player player) {
-        hidePersonalHudEntities(player);
+    public void removePersonalHud(Player player) {
+        hidePersonalHud(player);
         personalProviders.remove(player.getUniqueId());
         personalHudViewers.remove(player.getUniqueId());
     }
@@ -470,7 +470,7 @@ public class HudManager {
      *
      * @param slot 対象スロット
      */
-    public void hideSharedSlotEntities(HudSlot slot) {
+    public void hideSharedSlot(HudSlot slot) {
         TextDisplay display = sharedDisplays.remove(slot);
         if (display != null) display.remove();
         Interaction inter = sharedInteractions.remove(slot);
@@ -485,8 +485,8 @@ public class HudManager {
      *
      * @param slot 対象スロット
      */
-    public void hideSharedSlot(HudSlot slot) {
-        hideSharedSlotEntities(slot);
+    public void removeSharedSlot(HudSlot slot) {
+        hideSharedSlot(slot);
         sharedProviders.remove(slot);
         sharedViewers.remove(slot);
     }
@@ -495,8 +495,8 @@ public class HudManager {
     /**
      * 登録されている全Shared HUDを削除します。
      */
-    public void hideAllShared() {
-        new HashSet<>(sharedDisplays.keySet()).forEach(this::hideSharedSlot);
+    public void removeAllShared() {
+        new HashSet<>(sharedDisplays.keySet()).forEach(this::removeSharedSlot);
     }
 
     /**
@@ -504,13 +504,13 @@ public class HudManager {
      *
      * <p><b>onDisableで必ず呼んでください。</b></p>
      */
-    public void hideAll() {
+    public void removeAll() {
         new HashSet<>(personalInteractions.keySet()).forEach(uuid -> {
             Player player = Bukkit.getPlayer(uuid);
-            if (player != null) hidePersonalHud(player);
+            if (player != null) removePersonalHud(player);
         });
 
-        hideAllShared();
+        removeAllShared();
     }
 
     // =========================================================
@@ -759,7 +759,7 @@ public class HudManager {
                                             Location anchor, long ticks) {
         registerSharedProvider(slot, provider, anchor);
         Bukkit.getScheduler().runTaskLater(plugin, () ->
-                hideSharedSlot(slot), ticks);
+                removeSharedSlot(slot), ticks);
     }
 
     /**
@@ -774,7 +774,7 @@ public class HudManager {
                                             Entity anchor, long ticks) {
         registerSharedProvider(slot, provider, anchor);
         Bukkit.getScheduler().runTaskLater(plugin, () ->
-                hideSharedSlot(slot), ticks);
+                removeSharedSlot(slot), ticks);
     }
 
     // =========================================================
@@ -886,7 +886,7 @@ public class HudManager {
             @Override
             public void run() {
                 if (!condition.getAsBoolean()) {
-                    hideSharedSlot(slot);
+                    removeSharedSlot(slot);
                     cancel();
                 }
             }
@@ -909,7 +909,7 @@ public class HudManager {
             @Override
             public void run() {
                 if (!condition.getAsBoolean()) {
-                    hideSharedSlot(slot);
+                    removeSharedSlot(slot);
                     cancel();
                 }
             }

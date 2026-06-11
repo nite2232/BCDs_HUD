@@ -25,7 +25,7 @@ public class BCDs_HUD extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        hudManager.hideAll();
+        hudManager.removeAll();
         main = null;
     }
 
